@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row dashboard-wrapper">
+    <div class="col-md-8 offset-md-2">
+      <form [formGroup]="github" (submit)="submit()">
+        <mat-form-field>
+          <input matInput placeholder="Usename" formControlName="search" autocomplete="off">
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="col-md-8 offset-md-2 git-view" *ngIf="gitUser">
+      <mat-card>
+        <div class="git-left">
+          <div class="git-avatar" [style.background-image]="'url('+gitUser.avatar_url+')'"></div>
+          <div class="git-name"> {{ gitUser.login }} </div>
+        </div>
+        <div class="git-right">
+          <button mat-raised-button (click)="showRepo()">show repo</button>
+          <button mat-raised-button (click)="openProfile()">open</button>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-md-8 offset-md-2 git-repos" *ngIf="gitRepo">
+      <ng-container *ngFor="let repo of gitRepo">
+          <mat-card>
+            <div class="git-left">
+              <div class="git-repo-name"> {{repo.name}} </div>
+              <div class="git-repo-launguage"> {{repo.language}} </div>
+              <div class="git-repo-last-date"> {{repo.pushed_at | date: 'yyyy'}} - {{repo.pushed_at | date: 'M'}} - {{ repo.pushed_at | date: 'd' }} </div>
+            </div>
+            <div class="git-left">
+              <button mat-raised-button (click)="openRepo(repo)">open repo</button>
+            </div>
+          </mat-card>
+
+      </ng-container>  
+      
+    </div>
+  </div>
+</div>
